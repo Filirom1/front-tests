@@ -1,0 +1,66 @@
+<html class="no-js" lang="en">
+  <head>
+  <meta charset="utf-8">
+
+  <!-- Use the .htaccess and remove these lines to avoid edge case issues.
+       More info: h5bp.com/i/378 -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title></title>
+  <meta name="description" content="">
+
+  <!-- Mobile viewport optimized: h5bp.com/viewport -->
+  <meta name="viewport" content="width=device-width">
+
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
+  <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
+
+  <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body>
+  <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6.
+       chromium.org/developers/how-tos/chrome-frame-getting-started -->
+  <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+  <div id="mocha" data-build-exclude="true"></div>
+  <div id="main"> </div>
+
+  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script src="/vendor/jquery-1.7.1.js"></script>
+
+  <!-- I you use Backbone Model you will need JSON -->
+  <script>(!!window.JSON && !!JSON.parse) || document.write('<script src="/vendor/json2.min.js"><\/script>')</script>
+
+  <!-- scripts concatenated and minified via build script -->
+  <script src="/vendor/log.js"></script>
+  <script src="/vendor/underscore.js"></script>
+  <script src="/vendor/backbone.js"></script>
+  <script src="/vendor/handlebars.runtime-1.0.0.beta.6.js"></script>
+  <script src="/application.js"></script>
+  <script src="/lib/util.js"></script>
+  <script src="/lib/jquery.plugin.js"></script>
+  <script src="/lib/Backbone.plugin.js"></script>
+  <script src="/lib/Backbone.navigate.js"></script>
+  <script src="/model/Todo.js"></script>
+  <script src="/template/templates.js"></script>
+  <script src="/view/todo/IndexView.js"></script>
+  <script src="/view/todo/TotoView.js"></script>
+  <script src="/view/todo/SearchView.js"></script>
+  <script src="/Router.js"></script>
+  <!-- end scripts -->
+
+  <!-- Test begin: will be deleted for production -->
+  <link rel="stylesheet" href="/test/vendor/mocha.css">
+
+  <script src="/test/vendor/mocha.js" data-build-exclude="true"></script>
+  <script src="/test/vendor/chai.js" data-build-exclude="true"></script>
+  <script src="/test/vendor/chai-jquery.js" data-build-exclude="true"></script>
+  <script data-build-exclude="true">
+    mocha.setup('bdd');
+    expect = chai.expect;
+  </script>
+  <script src="/test/test.array.js" data-build-exclude="true"></script>
+  <script src="/test/test.web.js" data-build-exclude="true"></script>
+  <!-- End of test -->
+</body>
+</html>
