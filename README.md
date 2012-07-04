@@ -1,8 +1,6 @@
 # An exemple how to test your front with mocha and phantomjs
 
-Install phantomjs
-
-<http://phantomjs.org/>
+Install phantomjs <http://phantomjs.org/>
 
 Serve the exemple folder using pushState (use `serve-filirom1`)
 

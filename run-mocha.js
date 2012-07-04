@@ -35,16 +35,36 @@
   page.onConsoleMessage = function (msg) { console.log(msg); };
   page.open(url, function (status) {
     var test;
+    // inject custom scripts to change the behaviour of phantomjs
+
+    // add ES5 bind
     page.injectJs('lib/bind.js');
+
+    // add the node.js console
     page.injectJs('lib/console.js');
+
+    // add a shim for the node.js process.stdout.write
     page.injectJs('lib/process.stdout.write.js');
+
+    // now execute phantomjs
     page.evaluate(function(){
+
+      // setup mocha with the [spec reporter](http://visionmedia.github.com/mocha/#spec-reporter)
       mocha.setup({
         ui: 'bdd',
+
+        // TODO: it could be great to pass `spec` has an option in the command line.
+        // <https://github.com/ariya/phantomjs/commit/81794f90960>
         reporter: mocha.reporters.Spec
       });
+
+      // wait for dom loaded
       $(function(){
+
+        // then run mocha
         mocha.run().on('end', function(){
+
+          // and add a flag when the test end.
           mocha.end = true;
         });
       });
@@ -53,8 +73,12 @@
       console.log("Failed to load the page. Check the url");
       phantom.exit();
     }
+
+    // to know if mocha has finished running or not.
     test = function () {
       return page.evaluate(function () {
+
+        // custom flag, set ~10 lines before
         return mocha.end;
       });
     };
