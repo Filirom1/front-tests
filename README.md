@@ -1,10 +1,10 @@
-# An exemple how to test your front with mocha and phantomjs
+# An example how to test your front with mocha and phantomjs
 
 Install phantomjs <http://phantomjs.org/>
 
-Serve the exemple folder using pushState (use `serve-filirom1`)
+Serve the example folder using pushState (use `serve-filirom1`)
 
-    $ serve -P exemple
+    $ serve -P example
 
 Run the phantomjs script:
 
@@ -36,9 +36,9 @@ It will print this following output:
 
 ## Test it in a browser
 
-Serve the exemple folder using pushState (use `serve-filirom1`)
+Serve the example folder using pushState (use `serve-filirom1`)
 
-    $ serve -P exemple
+    $ serve -P example
 
 Then inside your browser run the following command:
 
