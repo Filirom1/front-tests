@@ -1,0 +1,79 @@
+#!/usr/bin/env node
+
+var path  = require('path');
+var http  = require('http');
+var spawn = require('child_process').spawn;
+var send  = require('send');
+var parse = require('url').parse;
+
+// basic options parser: https://github.com/mklabs/140-opts
+function optparse(a) { return a.map(function(c,d){return{n:c.match(/^--?(.+)/),v:a[d+1]||!0}}).reduce(function(a,b){b.n&&(a[b.n[1]]=b.v);return a},{}); }
+
+// path to mocha script
+
+var script = path.join(__dirname, '../lib/mocha-runner.js');
+
+// build args
+
+var argv = process.argv.slice(2);
+var args = [script].concat(argv);
+
+var opts = optparse(process.argv.slice(2))
+
+if(opts.help) {
+  return help();
+}
+
+if(opts.noserver) {
+  return phantomjs();
+}
+
+var url = parse(argv[0] || '');
+// defaults port to parsed URL one, if no specific one set
+opts.port = opts.port || url.port || 3000;
+if (!(url.port || url.host)) {
+  return help();
+}
+
+// start server
+
+var app = http.createServer(function(req, res){
+  send(req, req.url)
+    .root(process.cwd())
+    .pipe(res);
+});
+
+// and spawn
+
+app.listen(opts.port, function() {
+  console.log('... Server listening on %s ...', opts.port);
+  phantomjs();
+});
+
+function phantomjs() {
+  var proc = spawn('phantomjs', args, { stdio: 'inherit', customFds: [0, 1, 2] });
+  proc.on('exit', process.exit.bind(process));
+  return proc;
+}
+
+function help() {
+  console.log();
+  console.log('   Usage: headless-mocha URL [options]');
+  console.log();
+  console.log('   This script is a wrapper on top of Filirom1\s front-tests');
+  console.log('   PhantomJS runner for mocha.');
+  console.log();
+  console.log('   > https://github.com/Backbonist/front-tests');
+  console.log();
+  console.log('   In addition, this wrapper is able to start a static http server prior');
+  console.log('   to the PhantomJS / Mocha test suite. The URL is then used by PhantomJS');
+  console.log('   to open a new webpage, Mocha then runs the test suite and reports results');
+  console.log('   based on the --reporter');
+  console.log();
+  console.log('   Options:');
+  console.log('     - help       show this help message');
+  console.log('     - reporter   mocha reporter to use (one of: doc, spec, dot, min, ...)');
+  console.log('     - noserver   prevent the built-in http server from starting');
+  console.log('     - port       specify the port of the built-in http server [3000]');
+  console.log();
+}
