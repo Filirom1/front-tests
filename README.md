@@ -1,10 +1,10 @@
-# An exemple how to test your front with mocha and phantomjs
+# An example how to test your front with mocha and phantomjs
 
 Install phantomjs <http://phantomjs.org/>
 
-Serve the exemple folder using pushState (use `serve-filirom1`)
+Serve the example folder using pushState (use `serve-filirom1`)
 
-    $ serve -P exemple
+    $ serve -P example
 
 Run the phantomjs script:
 
@@ -36,9 +36,9 @@ It will print this following output:
 
 ## Test it in a browser
 
-Serve the exemple folder using pushState (use `serve-filirom1`)
+Serve the example folder using pushState (use `serve-filirom1`)
 
-    $ serve -P exemple
+    $ serve -P example
 
 Then inside your browser run the following command:
 
@@ -49,5 +49,5 @@ Then inside your browser run the following command:
 This project is mainly inspired, copied from:
   * [node.js util sources](https://raw.github.com/joyent/node/master/lib/util.js)
   * [@jeytrapp PhantomJS Mocha Scrapper](https://gist.github.com/3041251/c861295758d8b97d7050e4e35858b3f5e1ddaae3)
-  * [phantomjs injectme exemple](http://phantomjs.org/)
+  * [phantomjs injectme example](http://phantomjs.org/)
   * [underscore.js debounce](http://underscorejs.org/)
