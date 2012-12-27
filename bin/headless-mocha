@@ -1,8 +1,5 @@
 #!/usr/bin/env node
 
-var path  = require('path');
-var parse = require('url').parse;
-
 var runner = require('..');
 
 // basic options parser: https://github.com/mklabs/140-opts
@@ -15,15 +12,7 @@ var argv = process.argv.slice(2);
 // options
 
 var opts = optparse(argv)
-if(opts.help) {
-  return help();
-}
-
-// parse url / port
-
-var url = parse(argv[0] || '');
-opts.port = opts.port || url.port || 3000;
-if (!(url.port || url.host)) {
+if(opts.help || !argv.length) {
   return help();
 }
 
