@@ -26,6 +26,10 @@ MOCHA_REPORT ?= reports/mocha.xml
 # The reporter to use with `mocha` target
 MOCHA_REPORTER ?= spec
 
+# PhantomJS clean sed thing: used to cleanup any Parse or SyntaxError raised
+# during the CI test run (to always get valid XML for reports)
+PHANTOMJS_CLEAN ?= sed '/^\s*[\.:]/d' | sed '/^\w*Error/d' | sed '/^$$/d'
+
 mocha:
 	@echo ... Running $@ ...
 	headless-mocha $(MOCHA_TEST_URL) $(HEADLESS_MOCHA_FLAGS) --reporter $(MOCHA_REPORTER)
@@ -37,7 +41,7 @@ mocha-ci:
 	headless-mocha $(MOCHA_TEST_URL) $(HEADLESS_MOCHA_FLAGS) --reporter xunit | $(PHANTOMJS_CLEAN) > $(MOCHA_REPORT)
 
 mocha-help:
-	@cat $(DIRNAME)../../docs/mocha.md
+	@cat $(DIRNAME)../README.md
 	@echo
 	@echo "### Usage"
 	@echo
