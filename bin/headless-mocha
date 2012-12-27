@@ -37,6 +37,8 @@ if (!(url.port || url.host)) {
 
 // start server
 
+if(opts.cwd) process.chdir(opts.cwd);
+
 var app = http.createServer(function(req, res){
   send(req, req.url)
     .root(process.cwd())
@@ -72,6 +74,7 @@ function help() {
   console.log();
   console.log('   Options:');
   console.log('     - help       show this help message');
+  console.log('     - cwd        Root directory for the built-in webserver');
   console.log('     - reporter   mocha reporter to use (one of: doc, spec, dot, min, ...)');
   console.log('     - noserver   prevent the built-in http server from starting');
   console.log('     - port       specify the port of the built-in http server [3000]');

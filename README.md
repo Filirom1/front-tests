@@ -2,10 +2,12 @@
 
 Install phantomjs <http://phantomjs.org/>
 
-Run the phantomjs script:
+Run the phantomjs script
 
-    $ cd example
-    $ ../bin/headless-mocha http://127.0.0.1:3000
+    $ ./bin/headless-mocha http://127.0.0.1:3000 --cwd example
+
+    # or maybe
+    $ ./bin/headless-mocha http://visionmedia.github.com/mocha/example/tests.html
 
 It will print this following output:
 
@@ -54,6 +56,7 @@ most of mocha reporters are supported)
 
       Options:
        - help       show this help message
+       - cwd        Root directory for the built-in webserver
        - reporter   mocha reporter to use (one of: doc, spec, dot, min, ...)
        - noserver   prevent the built-in http server from starting
        - port       specify the port of the built-in http server [3000]
