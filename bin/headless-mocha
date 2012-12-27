@@ -1,62 +1,37 @@
 #!/usr/bin/env node
 
 var path  = require('path');
-var http  = require('http');
-var spawn = require('child_process').spawn;
-var send  = require('send');
 var parse = require('url').parse;
+
+var runner = require('..');
 
 // basic options parser: https://github.com/mklabs/140-opts
 function optparse(a) { return a.map(function(c,d){return{n:c.match(/^--?(.+)/),v:a[d+1]||!0}}).reduce(function(a,b){b.n&&(a[b.n[1]]=b.v);return a},{}); }
 
-// path to mocha script
-
-var script = path.join(__dirname, '../lib/mocha-runner.js');
-
 // build args
 
 var argv = process.argv.slice(2);
-var args = [script].concat(argv);
 
-var opts = optparse(process.argv.slice(2))
+// options
 
+var opts = optparse(argv)
 if(opts.help) {
   return help();
 }
 
-if(opts.noserver) {
-  return phantomjs();
-}
+// parse url / port
 
 var url = parse(argv[0] || '');
-// defaults port to parsed URL one, if no specific one set
 opts.port = opts.port || url.port || 3000;
 if (!(url.port || url.host)) {
   return help();
 }
 
-// start server
+// start server / run suite
+runner(opts);
 
-if(opts.cwd) process.chdir(opts.cwd);
 
-var app = http.createServer(function(req, res){
-  send(req, req.url)
-    .root(process.cwd())
-    .pipe(res);
-});
-
-// and spawn
-
-app.listen(opts.port, function() {
-  console.log('... Server listening on %s ...', opts.port);
-  phantomjs();
-});
-
-function phantomjs() {
-  var proc = spawn('phantomjs', args, { stdio: 'inherit', customFds: [0, 1, 2] });
-  proc.on('exit', process.exit.bind(process));
-  return proc;
-}
+// Utilities
 
 function help() {
   console.log();

@@ -4,6 +4,7 @@
   "description": "Mocha wrapper and runner on top of PhantomJS",
   "version": "0.1.0",
   "bin": "bin/headless-mocha",
+  "main": "lib/runner",
   "repository": {
     "type": "git",
     "url": "git://github.com/Backbonist/front-tests.git"
