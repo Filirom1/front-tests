@@ -13,7 +13,8 @@ module.exports = function(grunt) {
   //    grunt.initConfig({
   //      'headless-mocha': {
   //        url: 'http://localhost:3000'
-  //        cwd: 'example'
+  //        cwd: 'example',
+  //        reporter: 'spec'
   //      }
   //    });
   //
@@ -27,6 +28,8 @@ module.exports = function(grunt) {
 
     options.argv = options.argv || [];
     options.argv = [options.url].concat(options.argv);
+
+    if(options.reporter) options.argv.push('--reporter', options.reporter);
 
     var done = this.async();
     runner(options, function(err) {

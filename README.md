@@ -36,9 +36,9 @@ It will print this following output:
 ## Options
 
 The script is a facade and wrapper to mocha runner. The HTML test suite is not
-scrapped to get back the results, Mocha runner is invoked directly within the
-PhantomJS instance, allowing you to specify options like reporter (not all but
-most of mocha reporters are supported)
+relying on scrapping to get back the results, Mocha runner is invoked directly
+within the PhantomJS instance, allowing you to specify options like reporters
+(not all but most of mocha reporters are supported)
 
 
       $ headless-mocha --help
@@ -100,10 +100,36 @@ MOCHA_REPORTER ?= spec
 
 Any option above can be left out, these values are the default ones.
 
-### Setup your test suite
+### Using Grunt
+
+Install this grunt plugin next to your project's grunt.js gruntfile. Add it to
+your package.json dependencies.
+
+Then add this line to your project's grunt.js gruntfile:
+
+```js
+grunt.loadNpmTasks('front-tests');
+```
+
+The configuration:
+
+```js
+grunt.initConfig({
+  'headless-mocha': {
+    // the only required option is `url`
+    url: 'http://localhost:3000'
+    cwd: 'example',
+    reporter: 'xunit'
+  }
+});
+```
+
+You can then use `grunt headless-mocha` to run the test suite.
+
+## Setup your test suite
 
 Test suite are not different from standard HTML test suite. If your test suite
-  is running properly in your browser, then it should work properly using this
+is running properly in your browser, then it should work properly using this
 headless runner.
 
 Serve the example folder using pushState (use `serve-filirom1`)
