@@ -51,3 +51,7 @@ This project is mainly inspired, copied from:
   * [@jeytrapp PhantomJS Mocha Scrapper](https://gist.github.com/3041251/c861295758d8b97d7050e4e35858b3f5e1ddaae3)
   * [phantomjs injectme exemple](http://phantomjs.org/)
   * [underscore.js debounce](http://underscorejs.org/)
+
+## Alternatives
+
+http://metaskills.net/mocha-phantomjs/
