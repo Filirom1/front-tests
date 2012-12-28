@@ -1,0 +1,46 @@
+#!/usr/bin/env node
+
+var runner = require('..');
+
+// basic options parser: https://github.com/mklabs/140-opts
+function optparse(a) { return a.map(function(c,d){return{n:c.match(/^--?(.+)/),v:a[d+1]||!0}}).reduce(function(a,b){b.n&&(a[b.n[1]]=b.v);return a},{}); }
+
+// build args
+
+var argv = process.argv.slice(2);
+
+// options
+
+var opts = optparse(argv)
+if(opts.help || !argv.length) {
+  return help();
+}
+
+// start server / run suite
+runner(opts);
+
+
+// Utilities
+
+function help() {
+  console.log();
+  console.log('   Usage: headless-mocha URL [options]');
+  console.log();
+  console.log('   This script is a wrapper on top of Filirom1\s front-tests');
+  console.log('   PhantomJS runner for mocha.');
+  console.log();
+  console.log('   > https://github.com/Backbonist/front-tests');
+  console.log();
+  console.log('   In addition, this wrapper is able to start a static http server prior');
+  console.log('   to the PhantomJS / Mocha test suite. The URL is then used by PhantomJS');
+  console.log('   to open a new webpage, Mocha then runs the test suite and reports results');
+  console.log('   based on the --reporter');
+  console.log();
+  console.log('   Options:');
+  console.log('     - help       show this help message');
+  console.log('     - cwd        Root directory for the built-in webserver');
+  console.log('     - reporter   mocha reporter to use (one of: doc, spec, dot, min, ...)');
+  console.log('     - noserver   prevent the built-in http server from starting');
+  console.log('     - port       specify the port of the built-in http server [3000]');
+  console.log();
+}

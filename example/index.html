@@ -56,8 +56,11 @@
   <script src="/test/vendor/chai.js" data-build-exclude="true"></script>
   <script src="/test/vendor/chai-jquery.js" data-build-exclude="true"></script>
   <script data-build-exclude="true">
-    mocha.setup('bdd');
-    expect = chai.expect;
+    (function() {
+      mocha.setup('bdd');
+      expect = chai.expect;
+      if(window._phantom) mocha.run();
+    })();
   </script>
   <script src="/test/test.array.js" data-build-exclude="true"></script>
   <script src="/test/test.web.js" data-build-exclude="true"></script>
